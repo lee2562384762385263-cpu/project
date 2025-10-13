@@ -8,28 +8,32 @@ TEMPLATE = app
 # Source files
 SOURCES += \
     main.cpp \
-    src/notificationmanager.cpp
+    src/notificationmanager.cpp \
+    src/androidnotificationhandler.cpp \
+    src/iosnotificationhandler.mm
 
 HEADERS += \
-    src/notificationmanager.h
+    src/notificationmanager.h \
+    src/androidnotificationhandler.h \
+    src/iosnotificationhandler.h
 
 # QML files
 RESOURCES += qml.qrc
 
-# Platform-specific sources
+# Platform-specific configuration
 android {
-    SOURCES += src/androidnotificationhandler.cpp
-    HEADERS += src/androidnotificationhandler.h
+    # Ensure Q_OS_ANDROID is defined
+    DEFINES += Q_OS_ANDROID
+    
+    # Android-specific configuration
+    # Note: androidextras is not needed in Qt 6, JNI functionality is in core
     
     OTHER_FILES += \
         android/AndroidManifest.xml \
-        android/src/org/qtproject/example/notification/NotificationHelper.java
+        android/src/com/example/notificationapp/NotificationHelper.java
 }
 
 ios {
-    SOURCES += src/iosnotificationhandler.mm
-    HEADERS += src/iosnotificationhandler.h
-    
     OTHER_FILES += ios/Info.plist
     QMAKE_INFO_PLIST = ios/Info.plist
 }

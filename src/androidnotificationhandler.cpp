@@ -1,9 +1,9 @@
 #include "androidnotificationhandler.h"
+#include <QDebug>
 
 #ifdef Q_OS_ANDROID
 
 #include "notificationmanager.h"
-#include <QDebug>
 #include <QJniObject>
 #include <QJniEnvironment>
 #include <QCoreApplication>
@@ -129,6 +129,20 @@ void AndroidNotificationHandler::onPermissionResult(JNIEnv *env, jobject thiz, j
                                   Qt::QueuedConnection,
                                   Q_ARG(bool, granted));
     }
+}
+
+#else // !Q_OS_ANDROID
+
+// Stub implementations for non-Android platforms
+void AndroidNotificationHandler::initialize(NotificationManager *manager)
+{
+    Q_UNUSED(manager)
+    qDebug() << "AndroidNotificationHandler::initialize() - stub implementation (not on Android)";
+}
+
+void AndroidNotificationHandler::requestPermission()
+{
+    qDebug() << "AndroidNotificationHandler::requestPermission() - stub implementation (not on Android)";
 }
 
 #endif // Q_OS_ANDROID

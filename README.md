@@ -8,17 +8,19 @@ A cross-platform QML application that handles notifications and can be opened fr
 1. Open Qt Creator
 2. File → Open File or Project
 3. Select `NotificationApp.pro`
-4. Build and Run
+4. Configure with your Qt 6.8.2 kit (Desktop/Android/iOS)
+5. Build and Run
 
-### Option 2: Minimal Test First
+### Option 2: Android Build
+1. Configure Android kit in Qt Creator
+2. Select Android kit as active kit
+3. Build → Build Project
+4. **Note**: Android linker errors have been fixed (see `ANDROID_BUILD_FIX.md`)
+
+### Option 3: Minimal Test First
 1. Navigate to `minimal/` folder
 2. Open `minimal.pro` in Qt Creator
 3. Build and run to verify Qt setup works
-
-### Option 3: Docker (if available)
-```bash
-./docker-build.sh
-```
 
 ### Option 4: Command Line
 ```bash

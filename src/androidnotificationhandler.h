@@ -1,11 +1,13 @@
 #ifndef ANDROIDNOTIFICATIONHANDLER_H
 #define ANDROIDNOTIFICATIONHANDLER_H
 
-#ifdef Q_OS_ANDROID
-
 #include <QObject>
 #include <QVariantMap>
+
+#ifdef Q_OS_ANDROID
 #include <QJniObject>
+#include <jni.h>
+#endif
 
 class NotificationManager;
 
@@ -16,6 +18,8 @@ class AndroidNotificationHandler : public QObject
 public:
     static void initialize(NotificationManager *manager);
     static void requestPermission();
+
+#ifdef Q_OS_ANDROID
     static void handleNotificationIntent(const QJniObject &intent);
 
 private:
@@ -25,8 +29,7 @@ private:
     // JNI callback methods
     static void onNotificationReceived(JNIEnv *env, jobject thiz, jstring title, jstring body, jstring data);
     static void onPermissionResult(JNIEnv *env, jobject thiz, jboolean granted);
-};
-
 #endif // Q_OS_ANDROID
+};
 
 #endif // ANDROIDNOTIFICATIONHANDLER_H
