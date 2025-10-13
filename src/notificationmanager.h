@@ -4,12 +4,10 @@
 #include <QObject>
 #include <QString>
 #include <QVariantMap>
-#include <qqmlregistration.h>
 
 class NotificationManager : public QObject
 {
     Q_OBJECT
-    QML_ELEMENT
     
     Q_PROPERTY(QString lastNotificationTitle READ lastNotificationTitle NOTIFY lastNotificationChanged)
     Q_PROPERTY(QString lastNotificationBody READ lastNotificationBody NOTIFY lastNotificationChanged)

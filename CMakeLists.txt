@@ -9,7 +9,7 @@ find_package(Qt6 6.8 REQUIRED COMPONENTS Core Quick)
 
 qt_standard_project_setup()
 
-qt_add_executable(NotificationApp
+qt_add_executable(notificationapp
     main.cpp
     src/notificationmanager.cpp
     src/notificationmanager.h
@@ -17,40 +17,40 @@ qt_add_executable(NotificationApp
 
 # Platform-specific sources
 if(ANDROID)
-    target_sources(NotificationApp PRIVATE
+    target_sources(notificationapp PRIVATE
         src/androidnotificationhandler.cpp
         src/androidnotificationhandler.h
     )
 endif()
 
 if(IOS)
-    target_sources(NotificationApp PRIVATE
+    target_sources(notificationapp PRIVATE
         src/iosnotificationhandler.mm
         src/iosnotificationhandler.h
     )
 endif()
 
-qt_add_qml_module(NotificationApp
+qt_add_qml_module(notificationapp
     URI NotificationApp
     VERSION 1.0
     QML_FILES
         Main.qml
 )
 
-target_link_libraries(NotificationApp
+target_link_libraries(notificationapp PRIVATE
     Qt6::Core
     Qt6::Quick
 )
 
 # Platform-specific settings
 if(ANDROID)
-    set_target_properties(NotificationApp PROPERTIES
+    set_target_properties(notificationapp PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android
     )
 endif()
 
 if(IOS)
-    set_target_properties(NotificationApp PROPERTIES
+    set_target_properties(notificationapp PROPERTIES
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/ios/Info.plist
     )

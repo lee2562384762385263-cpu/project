@@ -1,18 +1,22 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QtQml>
 #include "src/notificationmanager.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    // Register the NotificationManager type with QML
+    qmlRegisterType<NotificationManager>("NotificationApp", 1, 0, "NotificationManager");
+
     // Create notification manager instance
     NotificationManager notificationManager;
 
     QQmlApplicationEngine engine;
     
-    // Register the NotificationManager with QML
+    // Register the NotificationManager instance with QML
     engine.rootContext()->setContextProperty("notificationManager", &notificationManager);
     
     const QUrl url(QStringLiteral("qrc:/NotificationApp/Main.qml"));
