@@ -29,6 +29,13 @@ echo "2. iOS Deployment Target:"
 if grep -q "QMAKE_IOS_DEPLOYMENT_TARGET" NotificationApp.pro; then
     target=$(grep "QMAKE_IOS_DEPLOYMENT_TARGET" NotificationApp.pro | cut -d'=' -f2 | tr -d ' ')
     echo "   ✅ Set to iOS $target"
+    if [ "$target" = "14.0" ]; then
+        echo "   ✅ Compatible with iOS 18 simulator"
+    elif [ "$target" = "13.0" ]; then
+        echo "   ⚠️  May have API compatibility issues"
+    else
+        echo "   ⚠️  Check API compatibility for iOS $target"
+    fi
 else
     echo "   ❌ No deployment target set"
 fi

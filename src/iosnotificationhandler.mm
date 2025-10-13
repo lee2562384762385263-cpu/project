@@ -50,7 +50,12 @@
     }
     
     // Show notification even when app is in foreground
-    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
+    // Use modern API for iOS 14+ and fallback for older versions
+    if (@available(iOS 14.0, *)) {
+        completionHandler(UNNotificationPresentationOptionBanner | UNNotificationPresentationOptionSound);
+    } else {
+        completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
+    }
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center 

@@ -45,8 +45,8 @@ ios {
     LIBS += -framework UIKit
     LIBS += -framework UserNotifications
     
-    # iOS deployment target (minimum iOS 10.0 for UserNotifications)
-    QMAKE_IOS_DEPLOYMENT_TARGET = 10.0
+    # iOS deployment target (minimum iOS 14.0 for modern notification APIs)
+    QMAKE_IOS_DEPLOYMENT_TARGET = 14.0
     
     # Info.plist configuration
     OTHER_FILES += ios/Info.plist
