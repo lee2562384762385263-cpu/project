@@ -43,7 +43,9 @@ NotificationManager *IOSNotificationHandler::s_notificationManager = nullptr;
 - Added `#include "notificationmanager.h"` to `.cpp` file
 - Updated stub implementation to set the static member
 - Removed duplicate definition from `.mm` file
-- Made static member access consistent throughout `.mm` file
+- Fixed static member access patterns:
+  - Objective-C callbacks/blocks: `IOSNotificationHandler::s_notificationManager`
+  - Class member functions: `s_notificationManager`
 
 ## Result
 - ✅ Static member accessible from Objective-C callback functions

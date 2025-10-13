@@ -40,8 +40,8 @@
     QJsonDocument doc = QJsonDocument::fromJson(dataStr.toUtf8());
     QVariantMap dataMap = doc.object().toVariantMap();
     
-    if (s_notificationManager) {
-        QMetaObject::invokeMethod(s_notificationManager, 
+    if (IOSNotificationHandler::s_notificationManager) {
+        QMetaObject::invokeMethod(IOSNotificationHandler::s_notificationManager, 
                                   "handleNotificationReceived",
                                   Qt::QueuedConnection,
                                   Q_ARG(QString, titleStr),
@@ -84,8 +84,8 @@ void IOSNotificationHandler::requestPermission()
     [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
                           completionHandler:^(BOOL granted, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (s_notificationManager) {
-                QMetaObject::invokeMethod(s_notificationManager, 
+            if (IOSNotificationHandler::s_notificationManager) {
+                QMetaObject::invokeMethod(IOSNotificationHandler::s_notificationManager, 
                                           "notificationPermissionResult",
                                           Qt::QueuedConnection,
                                           Q_ARG(bool, granted));
