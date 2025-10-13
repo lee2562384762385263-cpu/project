@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     // Register the NotificationManager instance with QML
     engine.rootContext()->setContextProperty("notificationManager", &notificationManager);
     
-    const QUrl url(QStringLiteral("qrc:/NotificationApp/Main.qml"));
+    const QUrl url(QStringLiteral("qrc:/Main.qml"));
     
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

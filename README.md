@@ -1,20 +1,48 @@
-# Notification App - QML Cross-Platform
+# Qt 6.8.2 QML Notification App
 
-A Qt 6.8.2 QML application that handles notifications and can be opened from terminated state by tapping on notifications.
+A cross-platform QML application that handles notifications and can be opened from terminated state by tapping on notifications.
+
+## 🚀 Quick Start Options
+
+### Option 1: Qt Creator (Recommended)
+1. Open Qt Creator
+2. File → Open File or Project
+3. Select `NotificationApp.pro`
+4. Build and Run
+
+### Option 2: Minimal Test First
+1. Navigate to `minimal/` folder
+2. Open `minimal.pro` in Qt Creator
+3. Build and run to verify Qt setup works
+
+### Option 3: Docker (if available)
+```bash
+./docker-build.sh
+```
+
+### Option 4: Command Line
+```bash
+qmake NotificationApp.pro
+make  # or mingw32-make on Windows
+```
+
+## 📋 Prerequisites
+
+**See `SETUP_INSTRUCTIONS.md` for detailed setup instructions for your platform.**
+
+Quick requirements:
+- Qt 6.8.2 or later
+- Qt Creator (recommended)
+- CMake 3.16 or later (for CMake builds)
+- For Android: Android SDK, NDK
+- For iOS: Xcode, iOS SDK
 
 ## Features
 
-- Cross-platform QML application (iOS and Android)
+- Cross-platform QML application (iOS, Android, Desktop)
 - Notification handling with content reading
 - App launch from terminated state via notification tap
 - Shared codebase between platforms with platform-specific implementations
-
-## Requirements
-
-- Qt 6.8.2 or later
-- CMake 3.16 or later
-- For Android: Android SDK, NDK
-- For iOS: Xcode, iOS SDK
 
 ## Project Structure
 
