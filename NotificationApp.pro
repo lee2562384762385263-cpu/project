@@ -34,9 +34,26 @@ android {
 }
 
 ios {
+    # Ensure Q_OS_IOS is defined
+    DEFINES += Q_OS_IOS
+    
+    # Add Objective-C++ source file
     SOURCES += src/iosnotificationhandler.mm
+    
+    # iOS frameworks required for notifications
+    LIBS += -framework Foundation
+    LIBS += -framework UIKit
+    LIBS += -framework UserNotifications
+    
+    # iOS deployment target (minimum iOS 10.0 for UserNotifications)
+    QMAKE_IOS_DEPLOYMENT_TARGET = 10.0
+    
+    # Info.plist configuration
     OTHER_FILES += ios/Info.plist
     QMAKE_INFO_PLIST = ios/Info.plist
+    
+    # Enable Objective-C++ compilation
+    CONFIG += objective_c
 }
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
