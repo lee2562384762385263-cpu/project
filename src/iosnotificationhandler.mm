@@ -40,8 +40,8 @@
     QJsonDocument doc = QJsonDocument::fromJson(dataStr.toUtf8());
     QVariantMap dataMap = doc.object().toVariantMap();
     
-    if (IOSNotificationHandler::s_notificationManager) {
-        QMetaObject::invokeMethod(IOSNotificationHandler::s_notificationManager, 
+    if (s_notificationManager) {
+        QMetaObject::invokeMethod(s_notificationManager, 
                                   "handleNotificationReceived",
                                   Qt::QueuedConnection,
                                   Q_ARG(QString, titleStr),

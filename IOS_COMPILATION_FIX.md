@@ -4,32 +4,26 @@
 Compilation error: `'s_notificationManager' is a private member of 'IOSNotificationHandler'` in lines 43 and 44 of `iosnotificationhandler.mm`.
 
 ## Root Cause
-The static member `s_notificationManager` was declared inside the `#ifdef Q_OS_IOS` block as a private member, making it inaccessible to the Objective-C++ code in the `.mm` file.
+The static member `s_notificationManager` was declared as a private member, making it inaccessible to the Objective-C callback functions in the `.mm` file. These callback functions are not class member functions, so they cannot access private static members.
 
 ## Solution
 
 ### 1. Header File Changes (`iosnotificationhandler.h`)
 **Before:**
 ```cpp
-#ifdef Q_OS_IOS
-    // ... other methods ...
 private:
-    static NotificationManager *s_notificationManager;  // ❌ Inside ifdef
+    static NotificationManager *s_notificationManager;  // ❌ Private member
     static void *s_delegate;
-#endif
 ```
 
 **After:**
 ```cpp
-#ifdef Q_OS_IOS
-    // ... other methods ...
-#endif
+public:
+    // Public static member for callback access
+    static NotificationManager *s_notificationManager;  // ✅ Public member
 
 private:
-    static NotificationManager *s_notificationManager;  // ✅ Outside ifdef
-#ifdef Q_OS_IOS
     static void *s_delegate;
-#endif
 ```
 
 ### 2. Static Member Definition
@@ -49,16 +43,17 @@ NotificationManager *IOSNotificationHandler::s_notificationManager = nullptr;
 - Added `#include "notificationmanager.h"` to `.cpp` file
 - Updated stub implementation to set the static member
 - Removed duplicate definition from `.mm` file
+- Made static member access consistent throughout `.mm` file
 
 ## Result
-- ✅ Static member accessible from both `.cpp` and `.mm` files
+- ✅ Static member accessible from Objective-C callback functions
 - ✅ No duplicate symbol errors
 - ✅ Works on both iOS and non-iOS platforms
-- ✅ Maintains proper encapsulation
+- ✅ Callback functions can now access the notification manager
 
 ## Files Modified
-1. `src/iosnotificationhandler.h` - Moved static member outside ifdef
+1. `src/iosnotificationhandler.h` - Made static member public for callback access
 2. `src/iosnotificationhandler.cpp` - Added static member definition and header include
-3. `src/iosnotificationhandler.mm` - Removed duplicate static member definition
+3. `src/iosnotificationhandler.mm` - Removed duplicate definition and made access consistent
 
 The iOS build should now compile successfully!

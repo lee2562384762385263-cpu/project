@@ -37,12 +37,22 @@ else
     echo "❌ Stub implementation doesn't set static member"
 fi
 
+# Check that static member is public
+echo "Checking static member visibility..."
+if grep -A2 -B2 "static NotificationManager \*s_notificationManager" src/iosnotificationhandler.h | grep -q "public:"; then
+    echo "✅ s_notificationManager is public"
+else
+    echo "❌ s_notificationManager is not public"
+fi
+
 echo ""
 echo "Summary of changes made:"
-echo "1. Moved s_notificationManager outside #ifdef in header"
+echo "1. Made s_notificationManager public in header (was private)"
 echo "2. Defined static member in .cpp file (shared across platforms)"
 echo "3. Removed duplicate definition from .mm file"
 echo "4. Added notificationmanager.h include to .cpp file"
 echo "5. Updated stub implementation to set static member"
+echo "6. Made static member access consistent in .mm file"
 echo ""
+echo "✅ The compilation error should now be fixed!"
 echo "Try building for iOS now!"

@@ -20,8 +20,10 @@ public:
     static void setupNotificationDelegate();
 #endif // Q_OS_IOS
 
-private:
+    // Public static member for callback access
     static NotificationManager *s_notificationManager;
+
+private:
 #ifdef Q_OS_IOS
     static void *s_delegate;
 #endif // Q_OS_IOS
