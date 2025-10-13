@@ -10,7 +10,7 @@ SOURCES += \
     main.cpp \
     src/notificationmanager.cpp \
     src/androidnotificationhandler.cpp \
-    src/iosnotificationhandler.mm
+    src/iosnotificationhandler.cpp
 
 HEADERS += \
     src/notificationmanager.h \
@@ -34,6 +34,7 @@ android {
 }
 
 ios {
+    SOURCES += src/iosnotificationhandler.mm
     OTHER_FILES += ios/Info.plist
     QMAKE_INFO_PLIST = ios/Info.plist
 }

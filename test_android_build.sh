@@ -11,11 +11,17 @@ else
     exit 1
 fi
 
+if [ -f "src/iosnotificationhandler.cpp" ]; then
+    echo "✓ iosnotificationhandler.cpp exists"
+else
+    echo "✗ iosnotificationhandler.cpp missing"
+    exit 1
+fi
+
 if [ -f "src/iosnotificationhandler.mm" ]; then
-    echo "✓ iosnotificationhandler.mm exists"
+    echo "✓ iosnotificationhandler.mm exists (iOS-only)"
 else
     echo "✗ iosnotificationhandler.mm missing"
-    exit 1
 fi
 
 # Check if stub implementations exist
@@ -26,7 +32,7 @@ else
     echo "✗ Android stub implementations missing"
 fi
 
-if grep -q "stub implementation" src/iosnotificationhandler.mm; then
+if grep -q "stub implementation" src/iosnotificationhandler.cpp; then
     echo "✓ iOS stub implementations found"
 else
     echo "✗ iOS stub implementations missing"
@@ -40,10 +46,17 @@ else
     echo "✗ Android handler missing from .pro file"
 fi
 
-if grep -q "src/iosnotificationhandler.mm" NotificationApp.pro; then
-    echo "✓ iOS handler in .pro file"
+if grep -q "src/iosnotificationhandler.cpp" NotificationApp.pro; then
+    echo "✓ iOS handler (.cpp) in .pro file"
 else
-    echo "✗ iOS handler missing from .pro file"
+    echo "✗ iOS handler (.cpp) missing from .pro file"
+fi
+
+# Check that .mm file is only included for iOS
+if grep -A5 "ios {" NotificationApp.pro | grep -q "iosnotificationhandler.mm"; then
+    echo "✓ iOS .mm file conditionally included"
+else
+    echo "✗ iOS .mm file not conditionally included"
 fi
 
 echo "Test complete. Try building for Android now!"
