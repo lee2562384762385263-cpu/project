@@ -64,7 +64,6 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 @end
 
-NotificationManager *IOSNotificationHandler::s_notificationManager = nullptr;
 void *IOSNotificationHandler::s_delegate = nullptr;
 
 void IOSNotificationHandler::initialize(NotificationManager *manager)

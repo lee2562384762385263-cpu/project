@@ -1,0 +1,16 @@
+{
+  "aps": {
+    "alert": {
+      "title": "Test Notification",
+      "body": "This is a test notification to verify the app opens correctly from terminated state."
+    },
+    "badge": 1,
+    "sound": "default"
+  },
+  "customData": {
+    "message": "Hello from test notification!",
+    "timestamp": "2024-01-01T12:00:00Z",
+    "type": "test",
+    "id": "test-001"
+  }
+}

@@ -17,12 +17,13 @@ public:
 #ifdef Q_OS_IOS
     static void handleLaunchOptions(void *launchOptions);
     static void handleNotificationResponse(void *response);
+    static void setupNotificationDelegate();
+#endif // Q_OS_IOS
 
 private:
     static NotificationManager *s_notificationManager;
+#ifdef Q_OS_IOS
     static void *s_delegate;
-    
-    static void setupNotificationDelegate();
 #endif // Q_OS_IOS
 };
 

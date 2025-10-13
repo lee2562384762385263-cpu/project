@@ -1,12 +1,16 @@
 #include "iosnotificationhandler.h"
+#include "notificationmanager.h"
 #include <QDebug>
+
+// Static member definition (shared across all platforms)
+NotificationManager *IOSNotificationHandler::s_notificationManager = nullptr;
 
 #ifndef Q_OS_IOS
 
 // Stub implementations for non-iOS platforms
 void IOSNotificationHandler::initialize(NotificationManager *manager)
 {
-    Q_UNUSED(manager)
+    s_notificationManager = manager;
     qDebug() << "IOSNotificationHandler::initialize() - stub implementation (not on iOS)";
 }
 
