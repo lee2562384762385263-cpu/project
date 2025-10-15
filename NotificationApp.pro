@@ -48,7 +48,8 @@ ios {
     # iOS deployment target (minimum iOS 14.0 for modern notification APIs)
     QMAKE_IOS_DEPLOYMENT_TARGET = 14.0
     
-    # Info.plist configuration
+    # Bundle identifier and Info.plist configuration
+    QMAKE_BUNDLE_IDENTIFIER = com.example.notificationapp
     OTHER_FILES += ios/Info.plist
     QMAKE_INFO_PLIST = ios/Info.plist
     
