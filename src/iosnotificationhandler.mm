@@ -69,7 +69,9 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 @end
 
+// Static member definitions
 void *IOSNotificationHandler::s_delegate = nullptr;
+NotificationManager *IOSNotificationHandler::s_notificationManager = nullptr;
 
 void IOSNotificationHandler::initialize(NotificationManager *manager)
 {
