@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QtQml>
+#include <QDebug>
 #include "src/notificationmanager.h"
 
 int main(int argc, char *argv[])
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<NotificationManager>("NotificationApp", 1, 0, "NotificationManager");
 
     // Create notification manager instance
+    qDebug() << "Creating NotificationManager instance";
     NotificationManager notificationManager;
 
     QQmlApplicationEngine engine;

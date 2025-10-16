@@ -75,6 +75,7 @@ NotificationManager *IOSNotificationHandler::s_notificationManager = nullptr;
 
 void IOSNotificationHandler::initialize(NotificationManager *manager)
 {
+    qDebug() << "IOSNotificationHandler::initialize() called";
     s_notificationManager = manager;
     setupNotificationDelegate();
     
@@ -87,9 +88,11 @@ void IOSNotificationHandler::initialize(NotificationManager *manager)
 
 void IOSNotificationHandler::requestPermission()
 {
+    qDebug() << "IOSNotificationHandler::requestPermission() called";
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
                           completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        qDebug() << "iOS notification permission result:" << granted;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (IOSNotificationHandler::s_notificationManager) {
                 QMetaObject::invokeMethod(IOSNotificationHandler::s_notificationManager, 
@@ -128,6 +131,7 @@ void IOSNotificationHandler::handleLaunchOptions(void *launchOptions)
         QJsonDocument doc = QJsonDocument::fromJson(dataStr.toUtf8());
         QVariantMap dataMap = doc.object().toVariantMap();
         
+        qDebug() << "iOS: App launched from notification:" << titleStr << bodyStr;
         if (s_notificationManager) {
             s_notificationManager->handleAppLaunchedFromNotification(titleStr, bodyStr, dataMap);
         }
@@ -160,6 +164,7 @@ void IOSNotificationHandler::handleNotificationResponse(void *response)
     QJsonDocument doc = QJsonDocument::fromJson(dataStr.toUtf8());
     QVariantMap dataMap = doc.object().toVariantMap();
     
+    qDebug() << "iOS: Notification tapped while app running:" << titleStr << bodyStr;
     if (s_notificationManager) {
         s_notificationManager->handleAppLaunchedFromNotification(titleStr, bodyStr, dataMap);
     }
@@ -167,6 +172,7 @@ void IOSNotificationHandler::handleNotificationResponse(void *response)
 
 void IOSNotificationHandler::setupNotificationDelegate()
 {
+    qDebug() << "IOSNotificationHandler: Setting up notification delegate";
     NotificationDelegate *delegate = [[NotificationDelegate alloc] init];
     s_delegate = (__bridge_retained void*)delegate;
     
